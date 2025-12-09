@@ -7,18 +7,24 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - name: Fake deploy step
-        run: echo "Deploying for SCRUM-6 ..."
-
-      - name: Report deployment to Jira
-        uses: atlassian/gajira-deployment@v2
+      # 1) Create deployment on GitHub
+      - name: Create GitHub deployment
+        id: deployment
+        uses: chrnorm/deployment-action@releases/v1
         with:
-          environment: "staging"   # dev / staging / prod
-          state: "successful"
-        env:
-          JIRA_SITE: "lemaithy222.atlassian.net"
-          JIRA_USER_EMAIL: "lemaithy222@gmail.com"
-          JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+          environment: staging              # dev/staging/prod tuỳ bạn
+          description: "Deploy for SCRUM-6"
+          task: "deploy"
+
+      # 2) Update deployment 
+      - name: Set deployment status to success
+        uses: chrnorm/deployment-status@releases/v1
+        with:
+          state: success                    # success | failure | in_progress ...
+          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+        
