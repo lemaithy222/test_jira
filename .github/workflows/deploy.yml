@@ -2,7 +2,7 @@ name: Jira Deployment (Org Repo)
 
 on:
   push:
-    branches: [main]
+    branches: ["main"]
 
 jobs:
   deploy:
@@ -12,16 +12,14 @@ jobs:
       deployments: write
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - name: Create GitHub deployment
-        id: deployment
-        uses: chrnorm/deployment-action@releases/v1
-        with:
-          environment: staging
 
-      - name: Mark deployment as successful
+      - name: Set deployment status to success
         uses: chrnorm/deployment-status@releases/v1
         with:
           state: success
           deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+          environment_url: "https://example.com/staging"
+          token: ${{ github.token }}
