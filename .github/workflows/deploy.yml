@@ -22,15 +22,14 @@ jobs:
           environment: staging
           description: "Deploy for SCRUM-6"
           initial_status: pending
-          # target_url: "https://example.com/staging"
+          target_url: "https://example.com/staging"
           ref: ${{ github.sha }}
-          token: ${{ secrets.JIRA_API_TOKEN }}
+          token: ${{ github.token }}
 
       - name: Set deployment status to success
         uses: chrnorm/deployment-status@releases/v1
         with:
           state: success
           deployment_id: ${{ steps.deployment.outputs.deployment_id }}
-          token: ${{ secrets.JIRA_API_TOKEN }}
-
-          # environment_url: "https://ai-mlflow.assistx.dev/"
+          environment_url: "https://example.com/staging"
+          token: ${{ github.token }}
