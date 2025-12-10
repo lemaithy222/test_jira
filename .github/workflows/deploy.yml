@@ -15,6 +15,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Create GitHub deployment
+        id: deployment
+        uses: chrnorm/deployment-action@releases/v1
+        with:
+          environment: staging
+          description: "Deploy for SCRUM-6"
+          initial_status: pending
+          target_url: "https://example.com/staging"
+          ref: ${{ github.sha }}
+          token: ${{ github.token }}
 
       - name: Set deployment status to success
         uses: chrnorm/deployment-status@releases/v1
