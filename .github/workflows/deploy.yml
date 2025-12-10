@@ -33,3 +33,6 @@ jobs:
           deployment_id: ${{ steps.deployment.outputs.deployment_id }}
           environment_url: "https://example.com/staging"
           token: ${{ github.token }}
+        env:
+          JIRA_SITE: "lemaithy222.atlassian.net"
+          JIRA_USER_EMAIL: "lemaithy222n@gmail.com"
