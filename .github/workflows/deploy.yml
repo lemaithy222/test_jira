@@ -7,24 +7,25 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 1) Create deployment on GitHub
       - name: Create GitHub deployment
         id: deployment
         uses: chrnorm/deployment-action@releases/v1
         with:
-          environment: staging              # dev/staging/prod tuỳ bạn
+          environment: staging
           description: "Deploy for SCRUM-6"
-          task: "deploy"
+          task: deploy
 
-      # 2) Update deployment 
       - name: Set deployment status to success
         uses: chrnorm/deployment-status@releases/v1
         with:
-          state: success                    # success | failure | in_progress ...
+          state: success
           deployment_id: ${{ steps.deployment.outputs.deployment_id }}
-        
+          # environment_url: "https://ai-mlflow.assistx.dev/"
