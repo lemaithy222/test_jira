@@ -1,4 +1,4 @@
-name: Jira Deployment (Org Repo)
+name: Jira Deployment (Org Repo) test
 
 on:
   push:
