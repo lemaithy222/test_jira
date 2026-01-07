@@ -19,7 +19,7 @@ jobs:
         id: deployment
         uses: chrnorm/deployment-action@releases/v1
         with:
-          environment: staging
+          environment: production
           description: "Deploy for SCRUM-6"
           initial_status: pending
           target_url: "https://example.com/staging"
